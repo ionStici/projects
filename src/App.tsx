@@ -1,12 +1,12 @@
+import { AppContainer } from "./ui/components/app-container";
 import { Header } from "./ui/header";
-import Projects from "./ui/projects";
-import { Wrapper } from "./ui/wrapper";
+import { Projects } from "./ui/projects";
 
 export default function App() {
   return (
-    <Wrapper>
+    <AppContainer>
       <Header />
       <Projects />
-    </Wrapper>
+    </AppContainer>
   );
 }

@@ -1,3 +1,5 @@
+export type Level = "beginner" | "intermediate" | "advanced" | "expert";
+
 export type Project = {
   id: string;
   title: string;
@@ -11,7 +13,7 @@ export type Project = {
   order: number;
   isFeatured: number;
   completedAt: string;
-  level: "beginner" | "intermediate" | "advanced" | "expert";
+  level: Level;
 };
 
 export const projects: Project[] = [
@@ -1214,3 +1216,14 @@ export const projects: Project[] = [
     level: "beginner",
   },
 ];
+
+const { allTechs, allTags } = projects.reduce<{ allTechs: string[]; allTags: string[] }>(
+  (acc, project) => ({
+    allTechs: [...new Set([...acc.allTechs, ...project.techStack])],
+    allTags: [...new Set([...acc.allTags, ...project.tags])],
+  }),
+  { allTechs: [], allTags: [] }
+);
+
+export const allLevels = ["beginner", "intermediate", "advanced", "expert"];
+export { allTechs, allTags };

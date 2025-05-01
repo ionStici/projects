@@ -10,7 +10,7 @@ export default function ProjectCard({ project }: Props) {
           <img
             src={`/images/${project.images[0]}`}
             alt={project.title}
-            className="rounded-xl size-full object-cover"
+            className="rounded-t-xl size-full object-cover"
           />
           {/* <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent opacity-50 rounded-lg"></div> */}
         </div>
