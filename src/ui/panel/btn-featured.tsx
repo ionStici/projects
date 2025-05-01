@@ -20,7 +20,7 @@ export function BtnFeatured() {
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
       className="hidden [@media(min-width:500px)]:flex w-full max-w-32 h-12 items-center justify-center gap-2 
-      rounded-lg shadow cursor-pointer bg-white text-blue-700"
+      rounded-lg shadow cursor-pointer bg-white text-blue-700 transition hover:shadow-md"
     >
       <Icon isFeatured={isFeatured} />
       <span className={`font-medium ${isFeatured ? "!text-green-500" : ""}`}>Featured</span>

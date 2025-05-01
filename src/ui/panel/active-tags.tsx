@@ -35,6 +35,8 @@ export function ActiveTags() {
     });
   };
 
+  console.log(params);
+
   return (
     <>
       {isFeatured && <TabButton onClick={removeFeatured}>featured</TabButton>}
@@ -59,7 +61,7 @@ function TabButton({ children, onClick }: { children: React.ReactNode; onClick: 
       type="button"
       onClick={onClick}
       className="flex items-center justify-center gap-[2px] 
-      bg-green-500 backdrop-blur-[2px] py-[1px] pl-[5px] pr-[8px] rounded-md text-white cursor-pointer"
+      bg-green-500 py-[1px] pl-[5px] pr-[8px] rounded-md text-white cursor-pointer"
     >
       <X className="size-[18px]" />
       <span className="text-[15px]">{children}</span>

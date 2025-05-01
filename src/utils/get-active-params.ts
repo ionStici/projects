@@ -6,6 +6,7 @@ export const getActiveParams = (searchParams: URLSearchParams) => {
     if (key === "level") {
       if (acc.some(([k]) => k === "level")) return acc;
       if (!["beginner", "intermediate", "advanced", "expert"].includes(value)) return acc;
+      return [...acc, [key, value]];
     }
     if (key !== "tag" && key !== "tech") return acc;
     if (acc.some(([_, v]) => v === value)) return acc;
