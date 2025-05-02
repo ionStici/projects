@@ -2,34 +2,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FunnelPlus, X } from "lucide-react";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useSearchParams } from "react-router-dom";
 import { FilterFeatured } from "./filter-featured";
 import { FilterLevel } from "./filter-level";
+import { FilterTags } from "./filter-tags";
+import { FilterTechs } from "./filter-techs";
 
-type Props = {
-  isOpen: boolean;
-  close: () => void;
-};
+type Props = { isOpen: boolean; close: () => void };
 
 export function FilterModal({ isOpen, close }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleTagClick = (tag: string) => {
-    const currentTags = searchParams.getAll("tag");
-    if (!currentTags.includes(tag)) {
-      searchParams.append("tag", tag);
-      setSearchParams(searchParams);
-    }
-  };
-
-  const handleTechClick = (tech: string) => {
-    const currentTags = searchParams.getAll("tag");
-    if (!currentTags.includes(tech)) {
-      searchParams.append("tech", tech);
-      setSearchParams(searchParams);
-    }
-  };
-
   useEffect(() => {
     if (isOpen) document.body.classList.add("overflow-hidden");
     return () => document.body.classList.remove("overflow-hidden");
@@ -42,6 +22,8 @@ export function FilterModal({ isOpen, close }: Props) {
           <HeaderFilter close={close} />
           <FilterFeatured />
           <FilterLevel />
+          <FilterTags />
+          <FilterTechs />
         </FilterWrapper>
       )}
       {isOpen && <FilterOverlay close={close} />}
@@ -60,7 +42,7 @@ function FilterWrapper({ children }: { children: React.ReactNode }) {
       transition={{ duration: 0.2, ease: "easeInOut" }}
       className="fixed z-40 top-0 right-0 w-[300px] h-dvh"
     >
-      <div className="bg-white size-full py-6">{children} </div>
+      <div className="bg-white size-full py-6 overflow-y-auto">{children} </div>
     </motion.div>
   );
 }

@@ -71,17 +71,17 @@ export function ActiveTags() {
 function TabButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <motion.button
-      initial={{ width: 0, padding: 0 }}
-      animate={{ width: "auto", padding: "1px 8px 1px 5px" }}
-      exit={{ width: 0, padding: 0 }}
+      initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
+      animate={{ width: "auto", paddingLeft: "5px", paddingRight: "8px" }}
+      exit={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
       type="button"
       onClick={onClick}
-      className="flex items-center justify-center flex-nowrap
-      bg-green-500 py-[1px] pl-[5px] pr-[8px] rounded-md text-white cursor-pointer overflow-hidden"
+      className="flex items-center justify-center flex-nowrap text-nowrap overflow-hidden
+      bg-green-500 py-[1px] pl-[5px] pr-[8px] rounded-md text-white cursor-pointer"
     >
       <X className="size-[18px] mr-[2px]" />
-      <span className="text-[15px]">{children}</span>
+      <span className="text-[15px] text-nowrap">{children}</span>
     </motion.button>
   );
 }
