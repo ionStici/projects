@@ -30,7 +30,7 @@ export function BtnLevel() {
     <motion.div
       whileHover={{ maxWidth: "150px" }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="relative hidden sm:block w-full max-w-32 z-20"
+      className="relative hidden sm:block w-full max-w-32"
     >
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -44,9 +44,9 @@ export function BtnLevel() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: "-10px" }}
+            initial={{ opacity: 0, scale: 0.9, y: "-15px" }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: "-10px" }}
+            exit={{ opacity: 0, scale: 0.9, y: "-15px" }}
             className="absolute z-50 w-full top-16 left-0"
           >
             <ul ref={ref} className="w-full flex flex-col bg-white rounded-lg shadow-2xl">
@@ -60,9 +60,9 @@ export function BtnLevel() {
                   >
                     <button
                       onClick={() => handleLevelClick(level)}
-                      className={`text-gray-600 w-full h-10 px-2 cursor-pointer text-left font-medium 
-                      
-                      ${activeLevel === level ? `${color}` : ""}`}
+                      className={`w-full h-10 px-2 cursor-pointer text-left font-medium 
+                      hover:text-[18px] transition-all duration-200
+                      ${activeLevel === level ? `${color}` : "text-gray-600"}`}
                     >
                       {level}
                     </button>

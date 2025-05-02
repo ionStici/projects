@@ -14,9 +14,9 @@ export function Projects() {
   return (
     <ProjectsWrapper>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {/* {projects.slice(0, perPage).map((project) => (
+        {projects.slice(0, perPage).map((project) => (
           <ProjectCard key={project.id} project={project} />
-        ))} */}
+        ))}
       </div>
     </ProjectsWrapper>
   );

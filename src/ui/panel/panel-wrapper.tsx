@@ -1,15 +1,20 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { ActiveTags } from "./active-tags";
 
 export function PanelWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full mb-6 sm:mb-10">
+    <motion.div
+      initial={{ opacity: 0, y: -15, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.2, ease: "easeInOut", delay: 0.25 }}
+      className="w-full mb-6 sm:mb-10"
+    >
       <div className="bg-white/50 backdrop-blur-[2px] p-2 rounded-xl shadow-lg">
         <div className="flex items-center gap-3">{children}</div>
       </div>
-      <div className="flex items-center justify-center flex-wrap gap-2 mt-4">
-        <ActiveTags />
-      </div>
-    </div>
+
+      <ActiveTags />
+    </motion.div>
   );
 }
