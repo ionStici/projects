@@ -26,7 +26,7 @@ export function FilterModal({ isOpen, close }: Props) {
           <FilterTechs />
         </FilterWrapper>
       )}
-      {isOpen && <FilterOverlay close={close} />}
+      {isOpen && <FilterOverlay key={"filter-wrapper"} close={close} />}
     </AnimatePresence>,
     document.documentElement
   );
@@ -35,7 +35,6 @@ export function FilterModal({ isOpen, close }: Props) {
 function FilterWrapper({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      key={"a"}
       initial={{ x: "300px" }}
       animate={{ x: 0 }}
       exit={{ x: "300px" }}
@@ -50,6 +49,7 @@ function FilterWrapper({ children }: { children: React.ReactNode }) {
 function FilterOverlay({ close }: { close: () => void }) {
   return (
     <motion.div
+      key={"filter-overlay"}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

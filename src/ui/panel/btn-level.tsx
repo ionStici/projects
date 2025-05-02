@@ -20,10 +20,10 @@ export function BtnLevel() {
   const activeLevel = searchParams.get("level");
 
   const getColor = (level: string) => {
-    if (level === "beginner") return "text-blue-600";
-    if (level === "intermediate") return "text-green-600";
-    if (level === "advanced") return "text-purple-600";
-    if (level === "expert") return "text-red-600";
+    if (level === "beginner") return "text-blue-500";
+    if (level === "intermediate") return "text-yellow-500";
+    if (level === "advanced") return "text-orange-500";
+    if (level === "expert") return "text-red-500";
   };
 
   return (
@@ -44,12 +44,12 @@ export function BtnLevel() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: "-15px" }}
+            initial={{ opacity: 0, scale: 0.9, y: "15px" }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: "-15px" }}
-            className="absolute z-50 w-full top-16 left-0"
+            exit={{ opacity: 0, scale: 0.9, y: "15px" }}
+            className="absolute z-50 w-full bottom-16 left-0"
           >
-            <ul ref={ref} className="w-full flex flex-col bg-white rounded-lg shadow-2xl">
+            <ul ref={ref} className="w-full flex flex-col bg-white rounded-lg shadow-2xl z-10">
               {allLevels.map((level, i) => {
                 const color = getColor(level);
 
