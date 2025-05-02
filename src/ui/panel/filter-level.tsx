@@ -1,15 +1,18 @@
 import { useSearchParams } from "react-router-dom";
 import { allLevels } from "../../data/projects";
 import { CheckboxIcon } from "./checkbox-icon";
+import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function FilterLevel() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const isFeatured = useGetFeatured();
 
   const handleClick = (level: string) => {
     if (searchParams.get("level") === level) {
       searchParams.delete("level");
     } else {
       searchParams.set("level", level);
+      if (isFeatured) searchParams.set("featured", "false");
     }
     setSearchParams(searchParams);
   };

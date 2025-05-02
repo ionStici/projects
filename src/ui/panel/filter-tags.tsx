@@ -1,14 +1,17 @@
 import { useSearchParams } from "react-router-dom";
 import { CheckboxIcon } from "./checkbox-icon";
 import { allTags } from "../../data/projects";
+import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function FilterTags() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const isFeatured = useGetFeatured();
 
   const handleTagClick = (tag: string) => {
     const currentTags = searchParams.getAll("tag");
 
     if (!currentTags.includes(tag)) {
+      if (isFeatured) searchParams.set("featured", "false");
       searchParams.append("tag", tag);
       setSearchParams(searchParams);
     }

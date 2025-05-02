@@ -11,8 +11,8 @@ export function FilterFeatured() {
       searchParams.set("featured", "false");
       setSearchParams(searchParams);
     } else {
-      searchParams.delete("featured");
-      setSearchParams(searchParams);
+      const newParams = new URLSearchParams();
+      setSearchParams(newParams);
     }
   };
 

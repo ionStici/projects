@@ -8,9 +8,13 @@ export function BtnFeatured() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const toggleFeatured = () => {
-    if (isFeatured) searchParams.set("featured", "false");
-    else searchParams.delete("featured");
-    setSearchParams(searchParams);
+    if (isFeatured) {
+      searchParams.set("featured", "false");
+      setSearchParams(searchParams);
+    } else {
+      const newParams = new URLSearchParams();
+      setSearchParams(newParams);
+    }
   };
 
   return (

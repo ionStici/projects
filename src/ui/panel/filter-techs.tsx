@@ -1,15 +1,18 @@
 import { useSearchParams } from "react-router-dom";
 import { allTechs } from "../../data/projects";
 import { CheckboxIcon } from "./checkbox-icon";
+import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function FilterTechs() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const isFeatured = useGetFeatured();
 
   const handleTechClick = (tech: string) => {
     const currentTechs = searchParams.getAll("tech");
 
     if (!currentTechs.includes(tech)) {
       searchParams.append("tech", tech);
+      if (isFeatured) searchParams.set("featured", "false");
       setSearchParams(searchParams);
     }
 

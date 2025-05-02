@@ -4,15 +4,18 @@ import { allLevels } from "../../data/projects";
 import { useState } from "react";
 import { useOutsideClick } from "../../hooks/use-outside-click";
 import { useSearchParams } from "react-router-dom";
+import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function BtnLevel() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useOutsideClick<HTMLUListElement>(() => setIsOpen(false));
+  const isFeatured = useGetFeatured();
 
   const handleLevelClick = (level: string) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("level", level);
+    if (isFeatured) newParams.set("featured", "false");
     setSearchParams(newParams);
     setIsOpen(false);
   };
