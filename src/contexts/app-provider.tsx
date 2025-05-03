@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { allLevels, allTags, allTechs, projects as projectsData } from "../data";
-import { Project } from "../types/project";
+import { Level, Project } from "../types/project";
 import { getActiveParams } from "../utils/get-active-params";
 import { AppContext } from "./app-context";
 
@@ -15,9 +15,11 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
   const toggleFeatured = () => {
     if (isFeatured) {
       searchParams.set("featured", "false");
+      searchParams.delete("search");
       setSearchParams(searchParams);
     } else {
       const newParams = new URLSearchParams();
+      newParams.delete("search");
       setSearchParams(newParams);
     }
   };
@@ -40,7 +42,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
   const removeParam = (value: string) => {
     setSearchParams((prev) => {
       const entries = Array.from(prev.entries());
-      const filtered = entries.filter(([_, val]) => val !== value);
+      const filtered = entries.filter(([, val]) => val !== value);
       return new URLSearchParams(filtered);
     });
   };
@@ -67,22 +69,30 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
   // SHOW ALL
   const isShowAll = perPage === 1000 && featured === "false" && params.length === 0;
 
-  const activeLevel = searchParams.get("level");
+  const showAll = () => {
+    const newParams = new URLSearchParams();
+
+    if (!isShowAll) {
+      newParams.set("perPage", "1000");
+      newParams.set("featured", "false");
+      newParams.delete("search");
+    }
+
+    setSearchParams(newParams);
+  };
+
+  // SEARCH
   const search = searchParams.get("search") || "";
 
-  // functions
   const setSearch = (value: string) => {
     if (value) searchParams.set("search", value);
     else searchParams.delete("search");
+    if (perPage === 1000 && !isShowAll) searchParams.delete("perPage");
     setSearchParams(searchParams);
   };
 
-  const showAll = () => {
-    const newParams = new URLSearchParams();
-    newParams.set("perPage", "1000");
-    newParams.set("featured", "false");
-    setSearchParams(newParams);
-  };
+  // LEVEL
+  const activeLevel = searchParams.get("level") as Level | null;
 
   const toggleLevel = (level: string, mode: "add" | "toggle" = "add") => {
     if (mode === "add") {
@@ -109,40 +119,52 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     });
   };
 
-  let projects: Project[] = [];
-  if (isFeatured) {
-    projects = projectsData.filter((project) => project.isFeatured === 1);
-  } else if (isShowAll) {
-    projects = projectsData;
-  } else {
-    projects = projectsData.filter((project) => {
-      const matchesSearch = !search || project.title.toLowerCase().includes(search.toLowerCase());
+  // PROJECTS
+  const filteredProjects = useMemo(() => {
+    let projects: Project[] = [];
 
-      const matchesParams = params.every(([key, value]) => {
-        if (key === "tag") {
-          return project.tags.includes(value);
-        }
-        if (key === "tech") {
-          return project.techStack.includes(value);
-        }
-        if (key === "level") {
-          return project.level === value;
-        }
-        return false;
+    if (isFeatured) {
+      projects = projectsData.filter((project) => {
+        const matchesSearch = !search || project.title.toLowerCase().includes(search.toLowerCase());
+        return project.isFeatured === 1 && matchesSearch;
       });
+    } else if (isShowAll) {
+      projects = projectsData.filter((project) => {
+        const matchesSearch = !search || project.title.toLowerCase().includes(search.toLowerCase());
+        return matchesSearch;
+      });
+    } else {
+      projects = projectsData.filter((project) => {
+        const matchesSearch = !search || project.title.toLowerCase().includes(search.toLowerCase());
 
-      return matchesSearch && matchesParams;
-    });
-  }
+        const matchesParams = params.every(([key, value]) => {
+          if (key === "tag") {
+            return project.tags.includes(value);
+          }
+          if (key === "tech") {
+            return project.techStack.includes(value);
+          }
+          if (key === "level") {
+            return project.level === value;
+          }
+          return false;
+        });
 
-  const isMore = projects.length > perPage;
+        return matchesSearch && matchesParams;
+      });
+    }
+
+    return projects;
+  }, [isFeatured, isShowAll, search, params]);
+
+  const isMore = filteredProjects.length > perPage;
 
   const value = {
     // DATA
     allTechs,
     allTags,
     allLevels,
-    projects: isFeatured || isShowAll ? projects : projects.slice(0, perPage),
+    projects: isFeatured || isShowAll ? filteredProjects : filteredProjects.slice(0, perPage),
     // FEATURED
     isFeatured,
     toggleFeatured,
@@ -156,13 +178,15 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     activeTags,
     removeParam,
     toggleParam,
-    //
+    // SHOW ALL
     showAll,
     isShowAll,
-    removeLevel,
+    // SEARCH
     search,
     setSearch,
+    // LEVEL
     activeLevel,
+    removeLevel,
     toggleLevel,
   };
 

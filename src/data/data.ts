@@ -1,3 +1,4 @@
+import { Level } from "../types/project";
 import { projects } from "./projects";
 
 const { allTechs, allTags } = projects.reduce<{ allTechs: string[]; allTags: string[] }>(
@@ -8,6 +9,6 @@ const { allTechs, allTags } = projects.reduce<{ allTechs: string[]; allTags: str
   { allTechs: [], allTags: [] }
 );
 
-const allLevels = ["beginner", "intermediate", "advanced", "expert"];
+const allLevels: Level[] = ["beginner", "intermediate", "advanced", "expert"];
 
 export { allTechs, allTags, allLevels };
