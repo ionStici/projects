@@ -1,5 +1,5 @@
 import { AppContextProvider } from "./contexts/app-provider";
-import { AppContainer } from "./ui/components/app-container";
+import { AppContainer } from "./ui/layout/app-container";
 import { Footer } from "./ui/footer";
 import { Header } from "./ui/header";
 import { Panel } from "./ui/panel";

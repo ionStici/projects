@@ -164,7 +164,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     return projects;
   }, [isFeatured, isShowAll, search, params]);
 
-  const isMore = filteredProjects.length > perPage;
+  const isMore = filteredProjects.length > perPage && !isFeatured;
 
   const resetFilters = () => {
     const newParams = new URLSearchParams();

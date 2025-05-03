@@ -14,9 +14,8 @@ export function AppContainer({
         <div className="w-full max-w-7xl mx-auto">
           <div className="relative z-20">{children} </div>
         </div>
-        <>
-          <BgPattern />
-        </>
+
+        <BgPattern />
       </main>
       {footer}
     </>
