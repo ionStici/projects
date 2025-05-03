@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { basePath } from "../../data/constants";
 
 export function Images({ images, title }: { images: string[]; title: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,7 +17,7 @@ export function Images({ images, title }: { images: string[]; title: string }) {
   if (images.length <= 1) {
     return (
       <img
-        src={`/images/${images[0]}`}
+        src={`${basePath}/images/${images[0]}`}
         alt={title}
         className="rounded-xl size-full object-cover"
         width={370}
@@ -37,7 +38,7 @@ export function Images({ images, title }: { images: string[]; title: string }) {
           className="w-full h-full"
         >
           <img
-            src={`/images/${images[currentIndex]}`}
+            src={`${basePath}/images/${images[currentIndex]}`}
             alt={`${title} - Image ${currentIndex + 1}`}
             className="rounded-xl size-full object-cover"
             width={370}

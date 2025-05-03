@@ -31,7 +31,7 @@ type AppContextType = {
   // LEVEL
   activeLevel: Level | null;
   removeLevel: () => void;
-  toggleLevel: (level: string, mode: "add" | "toggle") => void;
+  toggleLevel: (level: string, mode?: "add" | "toggle") => void;
 } | null;
 
 const AppContext = React.createContext<AppContextType>(null);

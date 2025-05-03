@@ -164,7 +164,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     return projects;
   }, [isFeatured, isShowAll, search, params]);
 
-  const isMore = filteredProjects.length > perPage && !isFeatured;
+  const isMore = filteredProjects.length > perPage;
 
   const resetFilters = () => {
     const newParams = new URLSearchParams();
@@ -179,7 +179,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     allTechs,
     allTags,
     allLevels,
-    projects: isFeatured || isShowAll ? filteredProjects : filteredProjects.slice(0, perPage),
+    projects: isShowAll ? filteredProjects : filteredProjects.slice(0, perPage),
     // FEATURED
     isFeatured,
     toggleFeatured,
