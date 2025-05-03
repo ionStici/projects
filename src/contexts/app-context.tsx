@@ -2,6 +2,8 @@ import React from "react";
 import { Level, Project } from "../types/project";
 
 type AppContextType = {
+  // UTILS
+  resetFilters: () => void;
   // DATA
   allTechs: string[];
   allTags: string[];

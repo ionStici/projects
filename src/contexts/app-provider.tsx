@@ -47,27 +47,10 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     });
   };
 
-  const toggleParam = ({ tag, tech }: { tag?: string; tech?: string }) => {
-    if (tech) {
-      if (!activeTechs.includes(tech)) {
-        searchParams.append("tech", tech);
-        if (isFeatured) searchParams.set("featured", "false");
-      }
-      if (activeTechs.includes(tech)) searchParams.delete("tech", tech);
-      setSearchParams(searchParams);
-    }
-    if (tag) {
-      if (!activeTags.includes(tag)) {
-        searchParams.append("tag", tag);
-        if (isFeatured) searchParams.set("featured", "false");
-      }
-      if (activeTags.includes(tag)) searchParams.delete("tag", tag);
-      setSearchParams(searchParams);
-    }
-  };
-
   // SHOW ALL
   const isShowAll = perPage === 1000 && featured === "false" && params.length === 0;
+
+  const isRemovePerPage = (perPage === 1000 && !isShowAll) || isShowAll;
 
   const showAll = () => {
     const newParams = new URLSearchParams();
@@ -99,6 +82,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
       const newParams = new URLSearchParams(searchParams);
       newParams.set("level", level);
       if (isFeatured) newParams.set("featured", "false");
+      if (isRemovePerPage) newParams.delete("perPage");
       setSearchParams(newParams);
     }
     if (mode === "toggle") {
@@ -108,6 +92,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
         searchParams.set("level", level);
         if (isFeatured) searchParams.set("featured", "false");
       }
+      if (isRemovePerPage) searchParams.delete("perPage");
       setSearchParams(searchParams);
     }
   };
@@ -117,6 +102,28 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
       prev.delete("level");
       return prev;
     });
+  };
+
+  // TOGGLE PARAM
+  const toggleParam = ({ tag, tech }: { tag?: string; tech?: string }) => {
+    if (tech) {
+      if (!activeTechs.includes(tech)) {
+        searchParams.append("tech", tech);
+        if (isFeatured) searchParams.set("featured", "false");
+      }
+      if (activeTechs.includes(tech)) searchParams.delete("tech", tech);
+      if (isRemovePerPage) searchParams.delete("perPage");
+      setSearchParams(searchParams);
+    }
+    if (tag) {
+      if (!activeTags.includes(tag)) {
+        searchParams.append("tag", tag);
+        if (isFeatured) searchParams.set("featured", "false");
+      }
+      if (activeTags.includes(tag)) searchParams.delete("tag", tag);
+      if (isRemovePerPage) searchParams.delete("perPage");
+      setSearchParams(searchParams);
+    }
   };
 
   // PROJECTS
@@ -159,7 +166,15 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
 
   const isMore = filteredProjects.length > perPage;
 
+  const resetFilters = () => {
+    const newParams = new URLSearchParams();
+    newParams.set("featured", "false");
+    setSearchParams(newParams);
+  };
+
   const value = {
+    // UTILS
+    resetFilters,
     // DATA
     allTechs,
     allTags,
