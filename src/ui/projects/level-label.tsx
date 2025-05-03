@@ -1,5 +1,6 @@
+import { Level } from "../../types/project";
 import { getLevelColor } from "../../utils/get-level-color";
-import { Level } from "../../data/projects";
+
 export function LevelLabel({ level }: { level: string }) {
   const levelColor = getLevelColor(level as Level);
 

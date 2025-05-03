@@ -1,23 +1,8 @@
 import { Search, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useApp } from "../../hooks/use-app";
 
 export function SearchInput() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (search) {
-        searchParams.set("search", search);
-      } else {
-        searchParams.delete("search");
-      }
-      setSearchParams(searchParams);
-    }, 300);
-
-    return () => clearTimeout(timeoutId);
-  }, [search, searchParams, setSearchParams]);
+  const { search, setSearch } = useApp();
 
   return (
     <div className="relative w-full">

@@ -1,10 +1,9 @@
-import { Panel } from "../panel";
 import { motion } from "framer-motion";
+import { ButtonMore } from "./button-more";
 
 export function ProjectsWrapper({ children }: { children: React.ReactNode }) {
   return (
     <section className="w-full max-w-[1200px] mx-auto mb-20">
-      <Panel />
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -13,6 +12,7 @@ export function ProjectsWrapper({ children }: { children: React.ReactNode }) {
       >
         {children}
       </motion.div>
+      <ButtonMore />
     </section>
   );
 }

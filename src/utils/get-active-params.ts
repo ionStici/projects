@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const getActiveParams = (searchParams: URLSearchParams) => {
   return Array.from(searchParams.entries()).reduce<[string, string][]>((acc, [key, value]) => {
-    if (key === "featured") return acc;
-    if (key === "search" || !value) return acc;
     if (key === "level") {
       if (acc.some(([k]) => k === "level")) return acc;
       if (!["beginner", "intermediate", "advanced", "expert"].includes(value)) return acc;

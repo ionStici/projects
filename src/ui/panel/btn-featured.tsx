@@ -1,21 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { IconCheck } from "../../assets/icons";
-import { useGetFeatured } from "../../hooks/use-get-featured";
-import { useSearchParams } from "react-router-dom";
+import { useApp } from "../../hooks/use-app";
 
 export function BtnFeatured() {
-  const isFeatured = useGetFeatured();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const toggleFeatured = () => {
-    if (isFeatured) {
-      searchParams.set("featured", "false");
-      setSearchParams(searchParams);
-    } else {
-      const newParams = new URLSearchParams();
-      setSearchParams(newParams);
-    }
-  };
+  const { isFeatured, toggleFeatured } = useApp();
 
   return (
     <motion.button

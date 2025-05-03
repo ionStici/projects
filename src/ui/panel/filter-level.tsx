@@ -1,23 +1,8 @@
-import { useSearchParams } from "react-router-dom";
-import { allLevels } from "../../data/projects";
+import { useApp } from "../../hooks/use-app";
 import { CheckboxIcon } from "./checkbox-icon";
-import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function FilterLevel() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const isFeatured = useGetFeatured();
-
-  const handleClick = (level: string) => {
-    if (searchParams.get("level") === level) {
-      searchParams.delete("level");
-    } else {
-      searchParams.set("level", level);
-      if (isFeatured) searchParams.set("featured", "false");
-    }
-    setSearchParams(searchParams);
-  };
-
-  const activeLevel = searchParams.get("level");
+  const { allLevels, activeLevel, toggleLevel } = useApp();
 
   return (
     <div className="px-5 border-b border-gray-200 mb-5 pb-6">
@@ -28,7 +13,7 @@ export function FilterLevel() {
           return (
             <button
               key={level}
-              onClick={() => handleClick(level)}
+              onClick={() => toggleLevel(level, "toggle")}
               className="flex items-center gap-2 cursor-pointer"
             >
               <CheckboxIcon isOpen={activeLevel === level} />

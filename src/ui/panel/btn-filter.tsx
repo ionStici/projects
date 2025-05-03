@@ -14,7 +14,8 @@ export function BtnFilter() {
     >
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center justify-center gap-2 h-12 w-full  rounded-lg shadow cursor-pointer bg-white text-blue-700  transition hover:shadow-md"
+        className="flex items-center justify-center gap-2 h-12 w-full rounded-lg shadow cursor-pointer
+        bg-white text-blue-700 transition hover:shadow-md"
       >
         <Filter className="size-6" />
         <span className="font-medium">Filter</span>

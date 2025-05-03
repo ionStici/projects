@@ -1,46 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import React from "react";
-import { useSearchParams } from "react-router-dom";
-import { getActiveParams } from "../../utils/get-active-params";
-import { useGetFeatured } from "../../hooks/use-get-featured";
-import { AnimatePresence, motion } from "framer-motion";
+import { useApp } from "../../hooks/use-app";
 
 export function ActiveTags() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const params = getActiveParams(searchParams);
-
-  const isFeatured = useGetFeatured();
-
-  const removeFeatured = () => {
-    if (isFeatured) {
-      setSearchParams((prev) => {
-        prev.set("featured", "false");
-        return prev;
-      });
-    }
-  };
-
-  const removeLevel = () => {
-    setSearchParams((prev) => {
-      prev.delete("level");
-      return prev;
-    });
-  };
-
-  const removeParam = (value: string) => {
-    setSearchParams((prev) => {
-      const entries = Array.from(prev.entries());
-      const filtered = entries.filter(([_, val]) => val !== value);
-      return new URLSearchParams(filtered);
-    });
-  };
-
-  const isActive = isFeatured || params.length > 0;
+  const { isFeatured, params, toggleFeatured, removeLevel, removeParam } = useApp();
 
   return (
     <AnimatePresence>
-      {isActive && (
+      {(isFeatured || params.length > 0) && (
         <motion.div
           initial={{ height: 0, marginTop: 0 }}
           animate={{ height: "auto", marginTop: "16px" }}
@@ -49,7 +17,7 @@ export function ActiveTags() {
           className="flex items-center justify-center flex-wrap gap-2 mt-4 overflow-hidden"
         >
           <AnimatePresence>
-            {isFeatured && <TabButton onClick={removeFeatured}>featured</TabButton>}
+            {isFeatured && <TabButton onClick={toggleFeatured}>featured</TabButton>}
 
             {params.map((param, i) => {
               let onClick = () => removeParam(param[1]);

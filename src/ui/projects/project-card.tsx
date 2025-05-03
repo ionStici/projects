@@ -1,4 +1,4 @@
-import { Project } from "./../../data/projects";
+import { Project } from "../../types/project";
 import { CompletedAt } from "./completed-at";
 import { Images } from "./images";
 import { LevelLabel } from "./level-label";
@@ -7,7 +7,7 @@ import { ProjectTitle } from "./project-title";
 
 type Props = { project: Project };
 
-export default function ProjectCard({ project }: Props) {
+export function ProjectCard({ project }: Props) {
   const { title, images, summary, repo, demo, level, completedAt } = project;
   // const { slug, techStack, tags } = project;
 

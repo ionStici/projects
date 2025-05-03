@@ -1,33 +1,14 @@
-import { Gauge } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { allLevels } from "../../data/projects";
+import { Gauge } from "lucide-react";
 import { useState } from "react";
+import { useApp } from "../../hooks/use-app";
 import { useOutsideClick } from "../../hooks/use-outside-click";
-import { useSearchParams } from "react-router-dom";
-import { useGetFeatured } from "../../hooks/use-get-featured";
+import { getLevelColor } from "../../utils/get-level-color";
 
 export function BtnLevel() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { allLevels, activeLevel, toggleLevel } = useApp();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useOutsideClick<HTMLUListElement>(() => setIsOpen(false));
-  const isFeatured = useGetFeatured();
-
-  const handleLevelClick = (level: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("level", level);
-    if (isFeatured) newParams.set("featured", "false");
-    setSearchParams(newParams);
-    setIsOpen(false);
-  };
-
-  const activeLevel = searchParams.get("level");
-
-  const getColor = (level: string) => {
-    if (level === "beginner") return "text-blue-500";
-    if (level === "intermediate") return "text-yellow-500";
-    if (level === "advanced") return "text-orange-500";
-    if (level === "expert") return "text-red-500";
-  };
 
   return (
     <motion.div
@@ -54,7 +35,7 @@ export function BtnLevel() {
           >
             <ul ref={ref} className="w-full flex flex-col bg-white rounded-lg shadow-2xl z-10">
               {allLevels.map((level, i) => {
-                const color = getColor(level);
+                const color = getLevelColor(level, false);
 
                 return (
                   <li
@@ -62,7 +43,10 @@ export function BtnLevel() {
                     className="flex items-center w-full border-b border-gray-200 last:border-b-0"
                   >
                     <button
-                      onClick={() => handleLevelClick(level)}
+                      onClick={() => {
+                        toggleLevel(level);
+                        setIsOpen(false);
+                      }}
                       className={`w-full h-10 px-2 cursor-pointer text-left font-medium 
                       hover:text-[18px] transition-all duration-200
                       ${activeLevel === level ? `${color}` : "text-gray-600"}`}

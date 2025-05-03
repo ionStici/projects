@@ -8,7 +8,7 @@ export function PanelWrapper({ children }: { children: React.ReactNode }) {
       initial={{ opacity: 0, y: -15, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.2, ease: "easeInOut", delay: 0.25 }}
-      className="w-full mb-10"
+      className="w-full max-w-[1200px] mx-auto mb-10"
     >
       <div className="bg-white/50 backdrop-blur-[2px] p-2 rounded-xl shadow-lg">
         <div className="flex items-center gap-3">{children}</div>

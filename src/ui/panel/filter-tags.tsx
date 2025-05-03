@@ -1,28 +1,8 @@
-import { useSearchParams } from "react-router-dom";
+import { useApp } from "../../hooks/use-app";
 import { CheckboxIcon } from "./checkbox-icon";
-import { allTags } from "../../data/projects";
-import { useGetFeatured } from "../../hooks/use-get-featured";
 
 export function FilterTags() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const isFeatured = useGetFeatured();
-
-  const handleTagClick = (tag: string) => {
-    const currentTags = searchParams.getAll("tag");
-
-    if (!currentTags.includes(tag)) {
-      if (isFeatured) searchParams.set("featured", "false");
-      searchParams.append("tag", tag);
-      setSearchParams(searchParams);
-    }
-
-    if (currentTags.includes(tag)) {
-      searchParams.delete("tag", tag);
-      setSearchParams(searchParams);
-    }
-  };
-
-  const activeTags = searchParams.getAll("tag");
+  const { allTags, activeTags, toggleParam } = useApp();
 
   return (
     <div className="px-5 border-b border-gray-200 mb-5 pb-6">
@@ -33,7 +13,7 @@ export function FilterTags() {
           return (
             <button
               key={tag}
-              onClick={() => handleTagClick(tag)}
+              onClick={() => toggleParam({ tag })}
               className="flex items-center gap-2 cursor-pointer"
             >
               <CheckboxIcon isOpen={activeTags.includes(tag)} />
