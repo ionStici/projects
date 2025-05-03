@@ -3,7 +3,7 @@ import { TitleSubtitle } from "./title-subtitle";
 
 export function Header() {
   return (
-    <header className="pt-16 sm:pt-20 mb-20 sm:mb-28">
+    <header className="pt-16 sm:pt-20 lg:pt-24 mb-20 sm:mb-28">
       <SocialLinks />
       <TitleSubtitle />
     </header>

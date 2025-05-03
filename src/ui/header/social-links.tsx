@@ -15,7 +15,7 @@ export function SocialLinks() {
       initial={{ y: "-1500px", opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="w-fit sm:mx-auto flex items-center justify-start sm:justify-center gap-2 px-3 py-1 mb-4 sm:mb-6 border border-blue-400/95 rounded-xl shadow-inner shadow-blue-600/75"
+      className="w-fit sm:mx-auto flex items-center justify-start sm:justify-center gap-2 px-3 py-1 mb-4 sm:mb-6 lg:mb-8 border border-blue-400/95 rounded-xl shadow-inner shadow-blue-600/75 backdrop-blur-[1px]"
     >
       <motion.div
         className="flex gap-2"

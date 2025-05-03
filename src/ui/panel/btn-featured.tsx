@@ -13,7 +13,7 @@ export function BtnFeatured() {
       animate={
         isFeatured
           ? {
-              scale: [1, 1.2, 1],
+              scale: [1, 1.15, 1],
               transition: { duration: 0.75, repeat: Infinity, repeatType: "reverse" },
             }
           : {}
