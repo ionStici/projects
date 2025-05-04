@@ -2,7 +2,7 @@
   "name": "Ion Stici Portfolio",
   "short_name": "Portfolio",
   "description": "Explore a collection of projects created by Ion Stici, a software engineer with a passion for building web applications.",
-  "start_url": "/",
+  "start_url": "/projects",
   "display": "standalone",
   "background_color": "#3b82f6",
   "theme_color": "#3b82f6",
