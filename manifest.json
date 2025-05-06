@@ -1,7 +1,7 @@
 {
   "name": "Ion Stici Portfolio",
   "short_name": "Portfolio",
-  "description": "Explore a collection of projects created by Ion Stici, a software engineer with a passion for building web applications.",
+  "description": "Portfolio projects of Ion Stici, a web developer building modern web applications with React, TypeScript and Node.js. Featuring real-world projects and practical solutions.",
   "start_url": "/projects",
   "display": "standalone",
   "background_color": "#3b82f6",
